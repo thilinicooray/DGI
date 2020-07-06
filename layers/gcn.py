@@ -91,16 +91,16 @@ class GCN(nn.Module):
         mask = fully_connected.masked_fill(adj > 0, 0)
         return mask
 
-    def forward(self, fea, adj):
+    def forward(self, fea, adj, sparse=False):
 
         flag_adj = adj.masked_fill(adj > 0, 1)
 
-        x_enc = self.ingc(fea, adj)
+        x_enc = self.ingc(fea, adj, sparse)
 
         x = F.dropout(x_enc, 0.8, training=self.training)
 
 
-        val = self.ingc_g(x, self.get_mask(adj))
+        val = self.ingc_g(x, self.get_mask(adj), False)
         #val_in = val + x
         val_org = val
 
@@ -116,20 +116,15 @@ class GCN(nn.Module):
             mask = mask + current_layer_adj
 
             midgc = self.midlayer[i]
-            #x = midgc(torch.cat([x_enc, x],-1), adj)
-            x = midgc(x, adj)
+            x = midgc(x, adj, sparse)
             x = F.dropout(x, self.dropout, training=self.training)
 
             new_val = midgc(x, self.get_mask(mask))
-            val = val + F.dropout(new_val, self.dropout, training=self.training)
+            val = val + F.dropout(new_val, 0.8, training=self.training)
 
-            '''key = midkey(torch.cat([x,fea],-1))
-            query = midquery(x)
-            val = val + self.attention(key, query, key, adj, mask)'''
             mfb_sign_sqrt = torch.sqrt(F.relu(val)) - torch.sqrt(F.relu(-(val)))
 
             val = F.normalize(mfb_sign_sqrt)
-            #TODO: gate to decide which amount should come from global and neighbours
 
 
         return x, val
