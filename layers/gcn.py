@@ -118,7 +118,7 @@ class GCN(nn.Module):
 
             midgc = self.midlayer[i]
             x = midgc(x, adj, sparse)
-            x = F.dropout(x, self.dropout, training=self.training)
+            x = F.dropout(x, 0.8, training=self.training)
 
             new_val = midgc(x, self.get_mask(mask))
             val = val + F.dropout(new_val, 0.8, training=self.training)
