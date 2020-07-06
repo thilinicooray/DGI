@@ -26,7 +26,8 @@ class DGI(nn.Module):
 
     # Detach the return variables
     def embed(self, seq, adj, sparse, msk):
-        h_1 = self.gcn(seq, adj, sparse)
+        #h_1 = self.gcn(seq, adj, sparse)
+        h_1, h_2 = self.gcn(seq, adj, sparse)
         c = self.read(h_1, msk)
 
         return h_1.detach(), c.detach()
