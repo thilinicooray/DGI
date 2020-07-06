@@ -16,7 +16,7 @@ lr = 0.001
 l2_coef = 0.0
 drop_prob = 0.0
 hid_units = 512
-sparse = True
+sparse = False
 nonlinearity = 'prelu' # special name to separate parameters
 
 adj, features, labels, idx_train, idx_val, idx_test = process.load_data(dataset)

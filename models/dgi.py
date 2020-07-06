@@ -1,11 +1,11 @@
 import torch
 import torch.nn as nn
-from layers import GCN, AvgReadout, Discriminator
+from layers import GCN,GCN_org, AvgReadout, Discriminator
 
 class DGI(nn.Module):
     def __init__(self, n_in, n_h, activation):
         super(DGI, self).__init__()
-        self.gcn = GCN(n_in, n_h, activation)
+        self.gcn = GCN_org(n_in, n_h, activation)
         self.read = AvgReadout()
 
         self.sigm = nn.Sigmoid()
