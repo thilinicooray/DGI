@@ -5,7 +5,7 @@ from layers import gcn, AvgReadout, Discriminator
 class DGI(nn.Module):
     def __init__(self, n_in, n_h, activation):
         super(DGI, self).__init__()
-        self.gcn = gcn.GCN(n_in, n_h, activation)
+        self.gcn = gcn.GCN_org(n_in, n_h, activation)
         self.read = AvgReadout()
 
         self.sigm = nn.Sigmoid()
