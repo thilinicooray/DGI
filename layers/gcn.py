@@ -91,8 +91,8 @@ class GCN(nn.Module):
     def forward(self, fea, adj, sparse=False):
 
         #print(fea.size(), adj.size())
-        fea = torch.squeeze(fea)
-        adj = torch.squeeze(adj)
+        #fea = torch.squeeze(fea)
+        #adj = torch.squeeze(adj)
 
         flag_adj = adj.masked_fill(adj > 0, 1)
 
@@ -113,7 +113,7 @@ class GCN(nn.Module):
         # mid block connections
         # for i in xrange(len(self.midlayer)):
         for i in range(len(self.midlayer)):
-            current_layer_adj = torch.mm(mask, flag_adj)
+            current_layer_adj = torch.bmm(mask, flag_adj)
             mask = mask + current_layer_adj
 
             midgc = self.midlayer[i]
