@@ -79,9 +79,6 @@ class GCN(nn.Module):
             self.midlayer.append(gcb)
 
 
-
-
-
     def reset_parameters(self):
         pass
 
@@ -92,6 +89,8 @@ class GCN(nn.Module):
         return mask
 
     def forward(self, fea, adj, sparse=False):
+
+        print(fea.size(), adj.size())
 
         flag_adj = adj.masked_fill(adj > 0, 1)
 
