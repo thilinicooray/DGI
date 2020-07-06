@@ -90,7 +90,9 @@ class GCN(nn.Module):
 
     def forward(self, fea, adj, sparse=False):
 
-        print(fea.size(), adj.size())
+        #print(fea.size(), adj.size())
+        fea = torch.squeeze(fea)
+        adj = torch.squeeze(adj)
 
         flag_adj = adj.masked_fill(adj > 0, 1)
 
@@ -124,7 +126,6 @@ class GCN(nn.Module):
             mfb_sign_sqrt = torch.sqrt(F.relu(val)) - torch.sqrt(F.relu(-(val)))
 
             val = F.normalize(mfb_sign_sqrt)
-
 
         return x, val
 
