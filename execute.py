@@ -82,7 +82,7 @@ for epoch in range(nb_epochs):
 
     loss = b_xent(logits, lbl)
 
-    print('Loss:', loss)
+    print('Loss:', loss.item())
 
     if loss < best:
         best = loss
