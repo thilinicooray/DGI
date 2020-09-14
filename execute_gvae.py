@@ -184,7 +184,7 @@ tot = tot.cuda()
 accs = []
 
 for _ in range(50):
-    log = LogReg(hid_units, nb_classes)
+    log = LogReg(hid_units*2, nb_classes)
     opt = torch.optim.Adam(log.parameters(), lr=0.01, weight_decay=0.0)
     log.cuda()
 
