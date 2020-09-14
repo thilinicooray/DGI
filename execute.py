@@ -16,7 +16,7 @@ lr = 0.001
 l2_coef = 0.0
 drop_prob = 0.0
 hid_units = 512
-sparse = False
+sparse = True
 nonlinearity = 'prelu' # special name to separate parameters
 
 adj, features, labels, idx_train, idx_val, idx_test = process.load_data(dataset)
@@ -102,7 +102,11 @@ for epoch in range(nb_epochs):
 print('Loading {}th epoch'.format(best_t))
 model.load_state_dict(torch.load('best_dgi.pkl'))
 
-embeds, _ = model.embed(features, sp_adj if sparse else adj, sparse, None)
+model.eval()
+with torch.no_grad():
+    embeds, _ = model.embed(features, sp_adj if sparse else adj, sparse, None)
+
+
 train_embs = embeds[0, idx_train]
 val_embs = embeds[0, idx_val]
 test_embs = embeds[0, idx_test]
@@ -134,7 +138,10 @@ for _ in range(50):
         loss.backward()
         opt.step()
 
-    logits = log(test_embs)
+    log.eval()
+
+    with torch.no_grad():
+        logits = log(test_embs)
     preds = torch.argmax(logits, dim=1)
     acc = torch.sum(preds == test_lbls).float() / test_lbls.shape[0]
     accs.append(acc * 100)
