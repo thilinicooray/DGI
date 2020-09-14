@@ -107,6 +107,7 @@ adj = process.normalize_adj(adj + sp.eye(adj.shape[0]))
 
 if sparse:
     sp_adj = process.sparse_mx_to_torch_sparse_tensor(adj)
+    adj = (adj + sp.eye(adj.shape[0])).todense()
 else:
     adj = (adj + sp.eye(adj.shape[0])).todense()
 
