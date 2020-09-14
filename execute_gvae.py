@@ -185,21 +185,21 @@ accs = []
 
 for _ in range(50):
     log = LogReg(hid_units*2, nb_classes)
-    opt = torch.optim.Adam(log.parameters(), lr=0.01, weight_decay=0.0)
+    opt1 = torch.optim.Adam(log.parameters(), lr=0.01, weight_decay=0.0)
     log.cuda()
     log.train()
     for _ in range(100):
 
 
-        opt.zero_grad()
+        opt1.zero_grad()
 
         logits = log(train_embs)
-        loss = xent(logits, train_lbls)
+        loss1 = xent(logits, train_lbls)
 
-        print('logreg loss ', loss)
+        print('logreg loss ', loss1)
 
-        loss.backward()
-        opt.step()
+        loss1.backward()
+        opt1.step()
 
     log.eval()
 
