@@ -88,7 +88,7 @@ dataset = 'cora'
 
 # training params
 batch_size = 1
-nb_epochs = 10000
+nb_epochs = 5
 patience = 20
 lr = 0.001
 l2_coef = 0.0
@@ -188,16 +188,14 @@ for _ in range(50):
     opt = torch.optim.Adam(log.parameters(), lr=0.01, weight_decay=0.0)
     log.cuda()
 
-    pat_steps = 0
-    best_acc = torch.zeros(1)
-    best_acc = best_acc.cuda()
-    log.train()
     for _ in range(100):
 
         opt.zero_grad()
 
         logits = log(train_embs)
         loss = xent(logits, train_lbls)
+
+        print('logreg loss ', loss)
 
         loss.backward()
         opt.step()
