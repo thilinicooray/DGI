@@ -169,7 +169,9 @@ for epoch in range(nb_epochs):
 print('Loading {}th epoch'.format(best_t))
 model.load_state_dict(torch.load('best_dgi.pkl'))
 
-embeds = model.get_embeddings(features, sp_adj if sparse else adj, sparse, None)
+model.eval()
+with torch.no_grad():
+    embeds = model.get_embeddings(features, sp_adj if sparse else adj, sparse, None)
 train_embs = embeds[0, idx_train]
 val_embs = embeds[0, idx_val]
 test_embs = embeds[0, idx_test]
