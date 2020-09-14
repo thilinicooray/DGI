@@ -60,9 +60,9 @@ class GcnInfomax(nn.Module):
 
     def recon_loss(self, recon_node, adj):
 
-        print('incoming ', recon_node.size(), adj.shape)
+        recon = recon_node[0]
 
-        recon_adj = torch.sigmoid(torch.mm(recon_node, recon_node.t()))
+        recon_adj = torch.sigmoid(torch.mm(recon, recon.t()))
 
         pos_weight = torch.Tensor([float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()])
         norm = adj.shape[0] * adj.shape[0] / float((adj.shape[0] * adj.shape[0] - adj.sum()) * 2)
