@@ -62,8 +62,7 @@ class GcnInfomax(nn.Module):
 
         recon = recon_node[0]
 
-        print('adj' , adj.size())
-
+        adj = adj[0]
         recon_adj = torch.sigmoid(torch.mm(recon, recon.t()))
 
         pos_weight = torch.Tensor([float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()])
