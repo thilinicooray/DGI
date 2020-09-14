@@ -60,7 +60,7 @@ class GcnInfomax(nn.Module):
 
     def recon_loss(self, recon_node, adj):
 
-        print('incoming ', recon_node.size(), adj.size())
+        print('incoming ', recon_node.size(), adj.shape)
 
         recon_adj = torch.sigmoid(torch.mm(recon_node, recon_node.t()))
 
