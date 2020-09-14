@@ -88,7 +88,7 @@ dataset = 'cora'
 
 # training params
 batch_size = 1
-nb_epochs = 5
+nb_epochs = 10000
 patience = 20
 lr = 0.001
 l2_coef = 0.0
@@ -198,7 +198,7 @@ for _ in range(50):
         logits = log(train_embs)
         loss1 = xent(logits, train_lbls)
 
-        print('logreg loss ', loss1)
+        #print('logreg loss ', loss1)
 
         loss1.backward()
         opt1.step()
