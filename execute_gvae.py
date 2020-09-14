@@ -189,6 +189,7 @@ for _ in range(50):
     log.cuda()
 
     for _ in range(100):
+        log.train()
 
         opt.zero_grad()
 
