@@ -61,13 +61,14 @@ class GcnInfomax(nn.Module):
     def recon_loss(self, recon_node, adj):
 
         recon = recon_node[0]
+        adj_label = torch.FloatTensor(adj.toarray())
 
         recon_adj = torch.sigmoid(torch.mm(recon, recon.t()))
 
         pos_weight = torch.Tensor([float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()])
         norm = adj.shape[0] * adj.shape[0] / float((adj.shape[0] * adj.shape[0] - adj.sum()) * 2)
 
-        cost = norm * F.binary_cross_entropy_with_logits(recon_adj, adj, pos_weight=pos_weight)
+        cost = norm * F.binary_cross_entropy_with_logits(recon_adj, adj_label, pos_weight=pos_weight)
 
         return cost
 
