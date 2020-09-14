@@ -8,7 +8,7 @@ from utils import process
 
 import torch.nn.functional as F
 
-from utils import imshow_grid, mse_loss, reparameterize, group_wise_reparameterize, accumulate_group_evidence, \
+from utils_vae import imshow_grid, mse_loss, reparameterize, group_wise_reparameterize, accumulate_group_evidence, \
     accumulate_group_rep, expand_group_rep
 
 
